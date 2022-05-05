@@ -4,12 +4,12 @@ class Rules extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('city', './assets/bg.png');
+        this.load.image('1', './assets/1.png');
     }
 
     create() {
         let textConfig = {
-            fontFamily: 'Alagard',
+            fontFamily: 'Fantasy',
             fontSize: '90px',
             color: '#5C44C2',
             align: 'center',
@@ -19,31 +19,12 @@ class Rules extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        let dropshadow = {
-            fontFamily: 'Alagard',
-            fontSize: '90px',
-            color: '#221A49',
-            align: 'center',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 0
-        }
+      
         this.sfx_select = this.sound.add('select');
-        this.cityscape = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'city').setOrigin(0);
+        this.scenes = this.add.tileSprite(0, 0, game.config.width, game.config.height, '1').setOrigin(0);
 
-        this.add.text(game.config.width/2 + 4, game.config.height/2 - 176, 'RunPocalypse', dropshadow).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 - 180, 'RunPocalypse', textConfig).setOrigin(0.5);
-
-        textConfig.fontSize = '40px';
-        textConfig.color = '#000000';
-        dropshadow.fontSize = '40px';
-        dropshadow.color = '#505050';
-
-
-        textConfig.color = '#ffffff';
-        this.add.text(game.config.width/2+2, game.config.height+2, 'Press SPACE to Play', dropshadow).setOrigin(0.5,1);
+        textConfig.color = '#99ffff';
+        this.add.text(game.config.width/2, game.config.height/1.1, 'Press SPACE to Play').setOrigin(0.5,1);
        
 
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
