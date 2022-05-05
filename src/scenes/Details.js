@@ -9,7 +9,7 @@ class Details extends Phaser.Scene {
 
     create() {
         let textConfig = {
-            fontFamily: 'Alagard',
+            fontFamily: 'Fantasy',
             fontSize: '90px',
             color: '#5C44C2',
             align: 'center',
