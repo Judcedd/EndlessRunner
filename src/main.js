@@ -1,24 +1,5 @@
-
-
-// tame the javashrek
-'use strict';
-
-// global variables
-
-let keyUP;
-let keyRIGHT;
-let keyLEFT;
-let keySPACE;
-let keyR;
-let keyDOWN;
-let highScore = 0;
-let currentScene = 0;
-const SCALE = 0.5;
-const tileSize = 35;
-
-// main game object
 let config = {
-    type: Phaser.WEBGL,
+    type: Phaser.CANVAS,
     width: 840,
     height: 525,
     physics: {
@@ -31,9 +12,13 @@ let config = {
             }
         }
     },
-    scene: [Menu, Play, Credits, Rules]
+    scene: [Menu, Play, Details, Rules]
 };
 
 let game = new Phaser.Game(config);
 
+let keyUP, keyRIGHT, keyLEFT, keySPACE, keyR, keyDOWN, keyF;
 
+const SCALE = 0.5;
+
+const tileSize = 26;
