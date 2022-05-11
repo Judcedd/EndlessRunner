@@ -128,7 +128,7 @@ class Play extends Phaser.Scene {
         this.timerRight = this.add.text(game.config.width/2-8, 12, + this.clock.getElapsedSeconds(), textConfig);
 
         // change to the next scene, speeding up
-        this.scene2 = this.time.delayedCall(5000, () => {
+        this.scene2 = this.time.delayedCall(15000, () => {
             this.bgm1.stop();
             this.bgm2.play();
             this.player.setDepth(1);
