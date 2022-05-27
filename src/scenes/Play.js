@@ -62,16 +62,11 @@ class Play extends Phaser.Scene {
 
         // create monster(the big one)
         this.monster = this.physics.add.sprite(game.config.width, 455 ,  'monster').setOrigin(0);
-        this.hood = this.physics.add.sprite(game.config.width+30, 445 ,  'monster').setOrigin(0.5,0.5);
-        this.hood.setSize(50,60);
-        this.hood.setDisplaySize(60,50);
         this.monster.body.allowGravity = false;
-        this.hood.body.allowGravity = false;
-        this.hood.body.immovable = true;
         
 
         // monster2 (the smaller one)
-        this.bat =  this.physics.add.sprite(game.config.width, Math.random()*(425-380)+380,  'bat').setOrigin(0);
+        this.bat = this.physics.add.sprite(game.config.width, Math.random()*(480-320) - 120,  'bat').setOrigin(0);
         this.bat.body.allowGravity = false;
         
         // add enemies to group
@@ -96,10 +91,7 @@ class Play extends Phaser.Scene {
             this.player.setVelocityY(0);
             this.playerState--;
         });
-        this.physics.add.collider(this.player, this.hood, ()=>{
-            this.player.body.setVelocityY(0);
-            this.player.body.setVelocityX(-1*this.hood.body.velocity.x+300);
-        });
+     
 
         // game over flag
         this.gameOver = false;
@@ -107,8 +99,8 @@ class Play extends Phaser.Scene {
 
         // speed setting
         this.monster.body.setVelocityX(-300);
-        this.hood.body.setVelocityX(-300);
-        this.bat.body.setVelocityX(-400);
+       
+        this.bat.body.setVelocityX(-700);
 
         // setting a countdown 
         this.clock = this.time.delayedCall(15000, () => {
@@ -127,18 +119,40 @@ class Play extends Phaser.Scene {
         }
         this.timerRight = this.add.text(game.config.width/2-8, 12, + this.clock.getElapsedSeconds(), textConfig);
 
+        let textConfig2 = {
+            fontFamily: 'Fantasy',
+            fontSize: '30px',
+            color: '#5C44C2',
+            align: 'center',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 0
+        }
+
+        this.score = 0;
+        this.scoreCurrent = this.add.text(10, 10, "Current Score: "+ this.score + " miles", textConfig2).setOrigin(0);
+        this.time.addEvent({ delay: 3000, callback: this.miles, callbackScope: this, loop: true });
+
+        if(highScore>=0){
+            this.highScore = this.add.text(265, 80, "High Score: "+ highScore+ " miles", textConfig2).setOrigin(1,0);
+        }
+
         // change to the next scene, speeding up
         this.scene2 = this.time.delayedCall(15000, () => {
+            this.time.addEvent({ delay: 1000, callback: this.miles, callbackScope: this, loop: true });
             this.bgm1.stop();
             this.bgm2.play();
             this.player.setDepth(1);
             this.bat.setDepth(1);
             this.monster.setDepth(1);
-            this.hood.setDepth(1);
+            this.scoreCurrent.setDepth(1);
+            this.highScore.setDepth(1);
             this.scenes.setDepth(0);
             this.scenes = this.add.tileSprite(0, 0, game.config.width, game.config.height, '2').setOrigin(0);
             this.scenes.setDepth(0);
-            this.changedSpeed += 10;
+            this.changedSpeed += 5;
             this.speeding = 2;
             }, null, this);
             this.state= "behind"
@@ -159,6 +173,10 @@ class Play extends Phaser.Scene {
             this.scene.start('menuScene');
             this.bgm1.stop();
             this.bgm2.stop();
+
+            if(this.score > highScore){
+                highScore = this.score;
+            }
         }
 
 
@@ -214,11 +232,11 @@ class Play extends Phaser.Scene {
 
 
             // change setting while jumping to scene2
-            if(this.monster.body.x <-200){
+            if(this.monster.body.x <-300){
                 this.monster_reset();
             }
             
-            if(this.bat.body.x <-200||this.bat.body.velocity.x==0){
+            if(this.bat.body.x <-300||this.bat.body.velocity.x==0){
                 this.bat_reset();
             }
             
@@ -268,14 +286,18 @@ class Play extends Phaser.Scene {
         
     }
 
+    miles(){
+        this.score += 1;
+        this.scoreCurrent.text = "Current Score: " + this.score + " miles";
+    }
 
     bat_reset(){
         this.bat.destroy();
-        this.bat =  this.physics.add.sprite(game.config.width, Math.random()*(425-380)+380,  'bat').setOrigin(0);
+        this.bat = this.physics.add.sprite(game.config.width, Math.random()*(425-380)+ 380, 'bat').setOrigin(0);
         this.bat.body.allowGravity = false;
-        this.bat.x = game.config.width+50;
+        this.bat.x = game.config.width + 150;
         this.bat.setVelocityY(0);
-        this.bat.setVelocityX((-1*((Math.random()*(500-400)+400)))*this.speeding);
+        this.bat.setVelocityX((-1*((Math.random()*(425-380) + 300))));
         this.bat.y = Math.random()*(425-380)+380;
         this.bats.add(this.bat);
 
@@ -284,11 +306,11 @@ class Play extends Phaser.Scene {
 
 
     monster_reset(){
-        this.monster.x = game.config.width+50;
-        this.num = (-1*((Math.random()*(500-300)+300)))*this.speeding;
-        this.monster.body.setVelocityX(this.num);
-        this.hood.x = this.monster.x+30;
-        this.hood.body.setVelocityX(this.num);
+        
+        this.monster.x = game.config.width+ 150;
+        this.position = (-1*((Math.random()*(600-320)+270)))*this.speeding;
+        this.monster.body.setVelocityX(this.position);
+        
 
     }
 
