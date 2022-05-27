@@ -19,6 +19,8 @@ let game = new Phaser.Game(config);
 
 let keyUP, keyRIGHT, keyLEFT, keySPACE, keyR, keyDOWN, keyF;
 
+let highScore = 0;
+
 const SCALE = 0.5;
 
 const tileSize = 26;
