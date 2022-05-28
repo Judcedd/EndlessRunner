@@ -66,7 +66,7 @@ class Play extends Phaser.Scene {
         
 
         // monster2 (the smaller one)
-        this.bat = this.physics.add.sprite(game.config.width, Math.random()*(480-320) - 120,  'bat').setOrigin(0);
+        this.bat = this.physics.add.sprite(game.config.width, Math.random()*(490-420) + 220,  'bat').setOrigin(0);
         this.bat.body.allowGravity = false;
         
         // add enemies to group
@@ -297,7 +297,7 @@ class Play extends Phaser.Scene {
         this.bat.body.allowGravity = false;
         this.bat.x = game.config.width + 150;
         this.bat.setVelocityY(0);
-        this.bat.setVelocityX((-1*((Math.random()*(425-380) + 300))));
+        this.bat.setVelocityX((-1*((Math.random()*(280-130) + 350)))*this.speeding);
         this.bat.y = Math.random()*(425-380)+380;
         this.bats.add(this.bat);
 
@@ -306,10 +306,11 @@ class Play extends Phaser.Scene {
 
 
     monster_reset(){
-        
-        this.monster.x = game.config.width+ 150;
-        this.position = (-1*((Math.random()*(600-320)+270)))*this.speeding;
+        this.monster.x = game.config.width+35;
+        this.position = (-1*((Math.random()*(500-380)+340)))*this.speeding;
         this.monster.body.setVelocityX(this.position);
+        //this.position = (-1*((Math.random()*(600-320)+350)))*this.speeding;
+        //this.monster.body.setVelocityX(this.position);
         
 
     }
