@@ -297,7 +297,7 @@ class Play extends Phaser.Scene {
         this.bat.body.allowGravity = false;
         this.bat.x = game.config.width + 150;
         this.bat.setVelocityY(0);
-        this.bat.setVelocityX((-1*((Math.random()*(280-130) + 350)))*this.speeding);
+        this.bat.setVelocityX((-1*((Math.random()*(500-400) + 350)))*this.speeding);
         this.bat.y = Math.random()*(425-380)+380;
         this.bats.add(this.bat);
 
